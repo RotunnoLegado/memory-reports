@@ -249,7 +249,8 @@
 
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('comprehensive')">Comprehensive Report</button>
-  <button class="tab-btn" onclick="switchTab('daily')">May 27 Daily Report</button>
+  <button class="tab-btn" onclick="switchTab('daily')">May 27 Report</button>
+  <button class="tab-btn" onclick="switchTab('may28')">May 28 Report</button>
 </nav>
 
 <div class="content">
@@ -634,6 +635,182 @@
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/49">#49</a></td><td>Landing/marketing page</td><td>#30</td><td>Feature</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/50">#50</a></td><td>Lighthouse performance audit</td><td>#31</td><td>Performance</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/51">#51</a></td><td>Obsidian workspace reset</td><td>&mdash;</td><td>Housekeeping</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== MAY 28 REPORT ==================== -->
+  <div id="may28" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">19</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">16</span> Issues Resolved</span>
+      <span class="meta-badge"><span class="num">80+</span> Files Modified</span>
+      <span class="meta-badge">May 28, 2026</span>
+    </div>
+
+    <!-- Framework Upgrade -->
+    <div class="section-card">
+      <h2>Framework Upgrade</h2>
+
+      <h3>Issue #57 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/63">PR #63</a> &mdash; Update Next.js 14 &rarr; 16 <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Upgraded <strong>Next.js 14.2.35 &rarr; 16.2.6</strong> + ESLint 8 &rarr; 9</li>
+        <li>Migrated from <code>.eslintrc.json</code> to flat config (<code>eslint.config.mjs</code>)</li>
+        <li>Changed lint script from <code>next lint</code> to <code>eslint .</code></li>
+        <li>Removed deprecated <code>experimental.optimizeCss</code></li>
+        <li>No application code changes needed &mdash; full backwards compatibility</li>
+      </ul>
+    </div>
+
+    <!-- New Features -->
+    <div class="section-card">
+      <h2>New Features (5 PRs)</h2>
+
+      <h3>Issue #52 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/66">PR #66</a> &mdash; Revision History UI for Family Book <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>History button</strong> on each book section card with inline revision list</li>
+        <li><strong>Preview</strong> &mdash; click a revision to expand and see its content</li>
+        <li><strong>Restore</strong> &mdash; "Restore this version" copies revision content back into section</li>
+        <li>Backend was already implemented &mdash; this PR adds the missing frontend UI</li>
+      </ul>
+
+      <h3>Issue #53 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/68">PR #68</a> &mdash; Book Templates UI <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>"Use a template" button</strong> in header toolbar alongside "Export PDF"</li>
+        <li><strong>Template browser modal</strong> &mdash; fetches templates from API, displays as selectable cards</li>
+        <li><strong>Preview step</strong> &mdash; shows which sections will be created before applying</li>
+        <li><strong>Apply template</strong> &mdash; parses markdown and creates one section per heading</li>
+        <li>Updated empty state with both template and blank section options</li>
+      </ul>
+
+      <h3>Issue #62 &rarr; PRs <a href="https://github.com/RotunnoLegado/legado/pull/65">#65</a>, <a href="https://github.com/RotunnoLegado/legado/pull/70">#70</a> &mdash; Password Visibility Toggle <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added show/hide toggle to password fields on <strong>login</strong>, <strong>register</strong>, and <strong>Account settings</strong> pages</li>
+      </ul>
+
+      <h3>Issue #59 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/60">PR #60</a> &mdash; Log Out Button <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added <strong>Log out</strong> button to sidebar footer using <code>supabase.auth.signOut()</code></li>
+        <li>Redirects to <code>/login</code> after sign out</li>
+        <li>Visible on both desktop sidebar and mobile hamburger menu</li>
+      </ul>
+    </div>
+
+    <!-- CORS & Infrastructure -->
+    <div class="section-card">
+      <h2>Infrastructure &amp; Dev Experience (3 PRs)</h2>
+
+      <h3>Issue #55 &rarr; PRs <a href="https://github.com/RotunnoLegado/legado/pull/56">#56</a>, <a href="https://github.com/RotunnoLegado/legado/pull/58">#58</a> &mdash; Fix CORS Errors via Next.js Proxy <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Root cause</strong>: Laravel CORS config only allowed port 3000; frontend ran on 3001</li>
+        <li><strong>Fix</strong>: Route all browser API calls through Next.js as a same-origin proxy</li>
+        <li>Browser &rarr; <code>/api/trees</code> (same origin) &rarr; Next.js rewrite &rarr; Laravel (server-to-server)</li>
+        <li>Eliminates CORS entirely &mdash; no CORS headers needed</li>
+      </ul>
+
+      <h3>Issue #64 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/67">PR #67</a> &mdash; Fix Docker SWC Lockfile Error <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed SWC lockfile patching error during Docker builds</li>
+      </ul>
+    </div>
+
+    <!-- Collaborator Access Fixes -->
+    <div class="section-card">
+      <h2>Collaborator Access Fixes (4 PRs)</h2>
+
+      <h3>Issue #73 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/108">PR #108</a> &mdash; Fix Diary Controller Blocking Collaborators <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Replaced owner-only <code>authorizeTree</code> check with <code>canAccess()</code> so collaborators can create diary entries</li>
+      </ul>
+
+      <h3>Issue #74 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/107">PR #107</a> &mdash; Fix Media Controller Blocking Collaborators <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Replaced owner-only check with <code>canAccess()</code> in <code>MediaFileController</code></li>
+      </ul>
+
+      <h3>Issue #72 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/109">PR #109</a> &mdash; Fix Invite E2E Test Selectors <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Updated Portuguese test selectors to English to match current UI</li>
+      </ul>
+
+      <h3>Issue #79 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/115">PR #115</a> &mdash; Fix Invite Accept Context Reload <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed invite accept page to reload <code>FamilyContext</code> so the new tree appears immediately</li>
+      </ul>
+    </div>
+
+    <!-- Tree Selection Fixes -->
+    <div class="section-card">
+      <h2>Tree Selection Fixes (4 PRs)</h2>
+      <p>All app pages were hardcoded to use the first tree, ignoring the user's selected tree in the sidebar. Fixed across all pages:</p>
+
+      <h3>Issue #75 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/110">PR #110</a> &mdash; Dashboard <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Converted from server component to client component using <code>useFamily()</code> context</li>
+        <li>Dashboard now re-fetches data when user switches trees</li>
+      </ul>
+
+      <h3>Issue #76 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/111">PR #111</a> &mdash; Diary <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Updated diary to use <code>useFamily().currentTree</code> for tree selection</li>
+      </ul>
+
+      <h3>Issue #77 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/114">PR #114</a> &mdash; Advisor <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed advisor page to use selected tree instead of first tree</li>
+      </ul>
+
+      <h3>Issue #78 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/112">PR #112</a> &mdash; Family Book <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed Family Book page to use selected tree instead of first tree</li>
+      </ul>
+    </div>
+
+    <!-- Code Quality -->
+    <div class="section-card">
+      <h2>Code Quality (2 PRs)</h2>
+
+      <h3>Issue #61 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/69">PR #69</a> &mdash; Fix Console Errors <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Caught unhandled promise rejections and console errors across the app</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/113">PR #113</a> &mdash; Translate All Portuguese Text to English <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Translated all remaining Portuguese text in the codebase to English</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All Merged PRs &mdash; May 28</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/56">#56</a></td><td>Fix CORS errors during local dev</td><td>#55</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/58">#58</a></td><td>Route API calls through Next.js proxy</td><td>#55</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/60">#60</a></td><td>Add log out button to sidebar</td><td>#59</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/63">#63</a></td><td>Update Next.js 14 &rarr; 16</td><td>#57</td><td>Upgrade</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/65">#65</a></td><td>Password visibility toggle (login/register)</td><td>#62</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/66">#66</a></td><td>Revision history UI for Family Book</td><td>#52</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/67">#67</a></td><td>Fix Docker SWC lockfile error</td><td>#64</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/68">#68</a></td><td>Book templates UI</td><td>#53</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/69">#69</a></td><td>Fix console errors &amp; promise rejections</td><td>#61</td><td>Code Quality</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/70">#70</a></td><td>Password visibility toggle (settings)</td><td>#62</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/107">#107</a></td><td>Fix media controller collaborator access</td><td>#74</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/108">#108</a></td><td>Fix diary controller collaborator access</td><td>#73</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/109">#109</a></td><td>Fix invite E2E test selectors</td><td>#72</td><td>Testing</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/110">#110</a></td><td>Fix dashboard tree selection</td><td>#75</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/111">#111</a></td><td>Fix diary tree selection</td><td>#76</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/112">#112</a></td><td>Fix Family Book tree selection</td><td>#78</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/113">#113</a></td><td>Translate Portuguese text to English</td><td>&mdash;</td><td>Code Quality</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/114">#114</a></td><td>Fix advisor tree selection</td><td>#77</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/115">#115</a></td><td>Fix invite accept context reload</td><td>#79</td><td>Bug Fix</td></tr>
         </tbody>
       </table>
     </div>
