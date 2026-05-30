@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memoury — Development Reports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #08082e;
+      --navy-mid: #1a1a7e;
+      --navy-light: #2020a0;
+      --cream: #f0ece5;
+      --cream-dark: #e5e0d6;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --white: #ffffff;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .site-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .site-header .brand {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .site-header .tagline {
+      font-size: 0.625rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem;
+    }
+    .site-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .site-header p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Navigation tabs */
+    .tab-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tab-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--navy);
+      border-bottom-color: var(--navy);
+    }
+
+    /* Content area */
+    .content { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Report card */
+    .report-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--white);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .meta-badge .num {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    /* Sections */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--navy);
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--text);
+    }
+    h3 a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    h3 a:hover { text-decoration: underline; }
+
+    .section-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    .section-card h2 { margin-top: 0; }
+
+    /* Lists */
+    ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+    li { margin-bottom: 0.35rem; font-size: 0.95rem; }
+    li strong { font-weight: 600; }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+    .badge-merged { background: #dcfce7; color: var(--green); }
+    .badge-complete { background: #dcfce7; color: var(--green); }
+    .badge-partial { background: #fef3c7; color: var(--amber); }
+    .badge-missing { background: #fee2e2; color: var(--red); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+    th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0.75rem 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    td {
+      padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    td a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    td a:hover { text-decoration: underline; }
+    tr:last-child td { border-bottom: none; }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .site-header h1 { font-size: 1.75rem; }
+      .content { padding: 1.5rem 1rem 3rem; }
+      .section-card { padding: 1.25rem; }
+      .tab-btn { padding: 0.75rem 1rem; font-size: 0.75rem; }
+      table { font-size: 0.8rem; }
+      .report-meta { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">Memoury</div>
+  <div class="tagline">The Living Book of Your Family</div>
+  <h1>Development Reports</h1>
+  <p>Technical documentation of features implemented, bugs fixed, and improvements delivered.</p>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('comprehensive')">Comprehensive Report</button>
+  <button class="tab-btn" onclick="switchTab('daily')">May 27 Daily Report</button>
+</nav>
+
+<div class="content">
+
+  <!-- ==================== COMPREHENSIVE REPORT ==================== -->
+  <div id="comprehensive" class="tab-content active">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">12</span> Sessions</span>
+      <span class="meta-badge"><span class="num">11</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">8</span> Issues Resolved</span>
+      <span class="meta-badge">May 2026</span>
+    </div>
+
+    <!-- Section 1: Planning -->
+    <div class="section-card">
+      <h2>1. Project Planning &amp; Issue Triage</h2>
+      <h3>Session: "Create GitHub issue per task"</h3>
+      <p>Set the foundation for all subsequent work:</p>
+      <ul>
+        <li><strong>Created 6 GitHub issues</strong> (#26&ndash;#31) with detailed acceptance criteria, covering testing, UX, mobile, GDPR, landing page, and performance</li>
+        <li><strong>Created custom labels</strong>: <code>priority: high</code>, <code>priority: medium</code>, <code>priority: low</code>, <code>testing</code>, <code>ux</code>, <code>compliance</code>, <code>performance</code></li>
+        <li><strong>Established PR conventions</strong>: titles prefixed with <code>[#N]</code> and bodies include <code>Closes #N</code> for auto-closing linked issues</li>
+      </ul>
+    </div>
+
+    <!-- Section 2: Testing -->
+    <div class="section-card">
+      <h2>2. Testing &amp; Quality</h2>
+
+      <h3>Issue #26 &mdash; Fix 3 Legacy Playwright Diary Test Failures &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/34">PR #34</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Refactored <strong>5 legacy diary E2E tests</strong> from live API calls to <code>page.route()</code> mocking</li>
+        <li>All 5 tests passed locally after refactoring</li>
+      </ul>
+
+      <h3>Issue #35 &mdash; Fix Diary CRUD Test Selectors &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/36">PR #36</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Updated <strong>7 Portuguese selectors</strong> to English to match the current UI labels</li>
+        <li>All 3 CRUD tests (create, edit, delete) passed</li>
+      </ul>
+
+      <h3>Issue #40 &mdash; VoiceRecorder useEffect Missing Dependency &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/45">PR #45</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed ESLint <code>react-hooks/exhaustive-deps</code> warning in <code>VoiceRecorder.tsx</code></li>
+        <li>Used a <strong>ref-based approach</strong> (<code>previewUrlRef</code>) to track the URL for cleanup</li>
+      </ul>
+
+      <h3>E2E Testing Skills &rarr; PRs <a href="https://github.com/RotunnoLegado/legado/pull/38">#38</a>, <a href="https://github.com/RotunnoLegado/legado/pull/42">#42</a>, <a href="https://github.com/RotunnoLegado/legado/pull/43">#43</a>, <a href="https://github.com/RotunnoLegado/legado/pull/48">#48</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Created reusable <strong>E2E testing skills</strong> documenting how to test the app locally with a mock API</li>
+        <li>Added type-checking and build verification guidance</li>
+      </ul>
+    </div>
+
+    <!-- Section 3: UX -->
+    <div class="section-card">
+      <h2>3. UX &amp; UI Improvements</h2>
+
+      <h3>Issue #27 &mdash; Empty States + Error Boundaries &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/37">PR #37</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>New reusable components</strong>: <code>ErrorBoundary.tsx</code>, <code>EmptyState.tsx</code>, <code>FetchError.tsx</code></li>
+        <li><strong>Advisor</strong>: empty state when no family members, error handling with retry</li>
+        <li><strong>Diary</strong>: empty state with illustration + "Create your first entry" CTA</li>
+        <li><strong>Dashboard</strong>: empty state ("Start your family journey"), error boundary wrapper</li>
+        <li>Added app-level <code>error.tsx</code> for Next.js error catching</li>
+        <li>E2E tests &mdash; <strong>all 8 assertions passed</strong></li>
+      </ul>
+
+      <h3>Issue #28 &mdash; Mobile Responsiveness Audit &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/41">PR #41</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>14 files modified</strong> across the entire app</li>
+        <li>Sticky mobile header with hamburger menu (<code>SidebarTrigger</code>)</li>
+        <li>Progressive padding on all pages</li>
+        <li>Responsive chat layout for Advisor</li>
+        <li>Horizontal-scroll tab bar on Settings</li>
+        <li>Responsive headings on Diary, header stacking on Members</li>
+        <li><strong>All 7 responsive test cases passed</strong></li>
+      </ul>
+    </div>
+
+    <!-- Section 4: Features -->
+    <div class="section-card">
+      <h2>4. New Features</h2>
+
+      <h3>Issue #29 &mdash; GDPR Data Export + Account Deletion &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/44">PR #44</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Backend (Laravel)</strong>:
+          <ul>
+            <li><code>GET /api/user/export</code> &mdash; full user data export as JSON (rate-limited: 1 per 24h)</li>
+            <li><code>GET /api/user/deletion-summary</code> &mdash; preview counts of data to be deleted</li>
+            <li><code>DELETE /api/user/account</code> &mdash; cascading deletion + Stripe cancellation + S3 cleanup</li>
+          </ul>
+        </li>
+        <li><strong>Frontend</strong>: Settings &rarr; Account tab with "Export your data" + "Delete account" dialog</li>
+        <li><strong>10 API feature tests</strong> covering export, auth, rate limiting, cascading deletion</li>
+      </ul>
+
+      <h3>Issue #32 &mdash; Forgot Password Flow &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/47">PR #47</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>3 new routes: <code>/forgot-password</code>, <code>/auth/callback</code>, <code>/reset-password</code></li>
+        <li>Integrated with Supabase auth</li>
+        <li><strong>6 local tests passed</strong></li>
+      </ul>
+
+      <h3>Issue #30 &mdash; Landing/Marketing Page &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/49">PR #49</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Full public landing page with hero, 6-card features grid, testimonial, CTA + footer</li>
+        <li>Design: Navy gradient, warm cream background, Playfair Display + Inter fonts</li>
+      </ul>
+    </div>
+
+    <!-- Section 5: Bug Fixes -->
+    <div class="section-card">
+      <h2>5. Bug Fixes</h2>
+
+      <h3>Issue #39 &mdash; MediaUploader Type Mismatch &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/46">PR #46</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Root cause</strong>: <code>mimeToFileType()</code> returned <code>'audio'</code> but backend expected <code>'voice'</code></li>
+        <li>Also resolved the <strong>pre-existing CI TypeScript error</strong> that had been blocking all PRs</li>
+      </ul>
+    </div>
+
+    <!-- Section 6: Performance -->
+    <div class="section-card">
+      <h2>6. Performance &amp; Accessibility</h2>
+
+      <h3>Issue #31 &mdash; Lighthouse Audit (&gt;85) &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/50">PR #50</a> <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>29 files modified</strong> (250 insertions, 50 deletions)</li>
+        <li><strong>Performance</strong>: Image optimization (AVIF/WebP), <code>display: swap</code> for fonts, dynamic import for ReactMarkdown</li>
+        <li><strong>SEO</strong>: Open Graph/Twitter metadata, per-page metadata, <code>robots.ts</code>, <code>sitemap.ts</code></li>
+        <li><strong>Accessibility</strong>: Semantic landmarks, ARIA attributes, screen-reader labels, <code>:focus-visible</code>, skip-to-content link</li>
+      </ul>
+    </div>
+
+    <!-- Section 7: Audit -->
+    <div class="section-card">
+      <h2>7. Feature Completeness Audit</h2>
+
+      <h3>Phase 5 Items (6/6 Complete)</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Item</th><th>Status</th><th>PR</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Landing page</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/49">#49</a></td></tr>
+          <tr><td>2</td><td>GDPR compliance</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/44">#44</a></td></tr>
+          <tr><td>3</td><td>Error boundaries / empty states</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/37">#37</a></td></tr>
+          <tr><td>4</td><td>Playwright tests</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/34">#34</a>, <a href="https://github.com/RotunnoLegado/legado/pull/36">#36</a></td></tr>
+          <tr><td>5</td><td>Mobile responsiveness</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/41">#41</a></td></tr>
+          <tr><td>6</td><td>Performance audit (Lighthouse &gt;85)</td><td><span class="badge badge-complete">Complete</span></td><td><a href="https://github.com/RotunnoLegado/legado/pull/50">#50</a></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Portuguese Feature Requirements (10/12 Implemented)</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Feature</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Voice recording for advice</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>2</td><td>Pre-set + custom advice topics</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>3</td><td>Living advice exchange</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>4</td><td>Remove AI ancestor advice</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>5</td><td>Collaboration network</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>6</td><td>Personal diary without collaboration</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>7</td><td>Platform invitation system</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>8</td><td>Stripe monetization</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>9</td><td>Document/photo/audio upload</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>10</td><td>Export book to PDF</td><td><span class="badge badge-complete">Implemented</span></td></tr>
+          <tr><td>11</td><td>Edit/adjust story (revision history)</td><td><span class="badge badge-partial">Partial</span></td></tr>
+          <tr><td>12</td><td>Book templates for AI generation</td><td><span class="badge badge-missing">Missing</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="section-card">
+      <h2>All Merged PRs</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/34">#34</a></td><td>Refactor diary tests to use route mocking</td><td>#26</td><td>Testing</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/36">#36</a></td><td>Update Diary CRUD test selectors to English</td><td>#35</td><td>Testing</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/37">#37</a></td><td>Add empty states + error boundaries</td><td>#27</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/38">#38</a></td><td>E2E testing skill (diary)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/41">#41</a></td><td>Mobile responsiveness audit</td><td>#28</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/42">#42</a></td><td>Testing skill (Memoury)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/43">#43</a></td><td>E2E testing skill (web app)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/44">#44</a></td><td>GDPR data export + account deletion</td><td>#29</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/45">#45</a></td><td>Fix VoiceRecorder useEffect dependency</td><td>#40</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/46">#46</a></td><td>Align 'audio' type to 'voice' in MediaUploader</td><td>#39</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/47">#47</a></td><td>Implement forgot password flow</td><td>#32</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/48">#48</a></td><td>Testing skill update</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/49">#49</a></td><td>Landing/marketing page</td><td>#30</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/50">#50</a></td><td>Lighthouse performance audit (&gt;85)</td><td>#31</td><td>Performance</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/51">#51</a></td><td>Obsidian workspace reset</td><td>&mdash;</td><td>Housekeeping</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Open Items -->
+    <div class="section-card">
+      <h2>Open Items</h2>
+      <table>
+        <thead>
+          <tr><th>Issue</th><th>Description</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/issues/52">#52</a></td><td>Revision history UI for Family Book sections</td><td>Medium</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/issues/53">#53</a></td><td>Book templates UI + AI content generation</td><td>Medium</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== DAILY REPORT ==================== -->
+  <div id="daily" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">16</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">8</span> Issues Resolved</span>
+      <span class="meta-badge"><span class="num">60+</span> Files Modified</span>
+      <span class="meta-badge">May 27, 2026</span>
+    </div>
+
+    <!-- Code Quality -->
+    <div class="section-card">
+      <h2>Code Quality &amp; MVP Prep</h2>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/33">PR #33</a> &mdash; LEG-30 MVP Essentials <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Applied <strong>PSR-12 code style</strong> formatting across PHP and TypeScript files</li>
+        <li>Refactored authorization: replaced direct <code>user_id</code> checks with <code>canAccess()</code></li>
+        <li>Fixed method signature formatting in <code>AdviceResponseController</code></li>
+        <li>Fixed S3 presign test: mock S3 presign instead of faking disk</li>
+      </ul>
+    </div>
+
+    <!-- Testing -->
+    <div class="section-card">
+      <h2>Testing &amp; Quality (3 PRs)</h2>
+
+      <h3>Issue #26 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/34">PR #34</a> &mdash; Refactor Diary Playwright Tests <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Refactored <strong>5 legacy diary E2E tests</strong> from live API calls to <code>page.route()</code> mocking</li>
+        <li>All 5 tests passed locally</li>
+      </ul>
+
+      <h3>Issue #35 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/36">PR #36</a> &mdash; Fix Diary CRUD Test Selectors <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Updated <strong>7 Portuguese selectors</strong> to English to match current UI</li>
+        <li>All 3 CRUD tests (create, edit, delete) passed</li>
+      </ul>
+
+      <h3>Issue #40 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/45">PR #45</a> &mdash; Fix VoiceRecorder useEffect Dependency <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed ESLint <code>react-hooks/exhaustive-deps</code> warning in <code>VoiceRecorder.tsx</code></li>
+        <li>Used ref-based approach (<code>previewUrlRef</code>) for cleanup without unnecessary re-renders</li>
+      </ul>
+    </div>
+
+    <!-- UX -->
+    <div class="section-card">
+      <h2>UX &amp; UI Improvements (2 PRs)</h2>
+
+      <h3>Issue #27 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/37">PR #37</a> &mdash; Empty States + Error Boundaries <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>New reusable components</strong>: <code>ErrorBoundary.tsx</code>, <code>EmptyState.tsx</code>, <code>FetchError.tsx</code></li>
+        <li><strong>Advisor</strong>: empty state when no family members + error handling with retry</li>
+        <li><strong>Diary</strong>: empty state with "Create your first entry" CTA + error handling with retry</li>
+        <li><strong>Dashboard</strong>: "Start your family journey" empty state + error boundary wrapper</li>
+        <li>E2E tests created &mdash; <strong>all 8 assertions passed</strong></li>
+      </ul>
+
+      <h3>Issue #28 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/41">PR #41</a> &mdash; Mobile Responsiveness Audit <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>14 files modified</strong> across the entire app</li>
+        <li>Sticky mobile header with hamburger menu</li>
+        <li>Progressive padding on all pages</li>
+        <li>Responsive chat, scroll tabs, stacked headers</li>
+        <li><strong>All 7 responsive test cases passed</strong></li>
+      </ul>
+    </div>
+
+    <!-- Features -->
+    <div class="section-card">
+      <h2>New Features (3 PRs)</h2>
+
+      <h3>Issue #29 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/44">PR #44</a> &mdash; GDPR Data Export + Account Deletion <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Backend</strong>: data export endpoint, deletion summary, cascading account deletion</li>
+        <li><strong>Frontend</strong>: Settings &rarr; Account with "Export your data" + "Delete account"</li>
+        <li><strong>10 API feature tests</strong></li>
+      </ul>
+
+      <h3>Issue #32 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/47">PR #47</a> &mdash; Forgot Password Flow <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>3 new routes integrated with Supabase auth</li>
+        <li><strong>6 local tests passed</strong></li>
+      </ul>
+
+      <h3>Issue #30 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/49">PR #49</a> &mdash; Landing/Marketing Page <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Full landing page: hero, 6-card features grid, testimonial, CTA + footer</li>
+        <li>Navy gradient, warm cream background, Playfair Display + Inter</li>
+      </ul>
+    </div>
+
+    <!-- Bug Fix -->
+    <div class="section-card">
+      <h2>Bug Fixes (1 PR)</h2>
+
+      <h3>Issue #39 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/46">PR #46</a> &mdash; MediaUploader Type Mismatch <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed <code>mimeToFileType()</code> returning <code>'audio'</code> instead of <code>'voice'</code></li>
+        <li><strong>Also unblocked CI</strong> &mdash; resolved pre-existing TypeScript error on main</li>
+      </ul>
+    </div>
+
+    <!-- Performance -->
+    <div class="section-card">
+      <h2>Performance &amp; Accessibility (1 PR)</h2>
+
+      <h3>Issue #31 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/50">PR #50</a> &mdash; Lighthouse Audit (&gt;85) <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>29 files modified</strong> (250 insertions, 50 deletions)</li>
+        <li>Performance, SEO, accessibility, and best practices optimizations</li>
+      </ul>
+    </div>
+
+    <!-- Tooling -->
+    <div class="section-card">
+      <h2>Developer Tooling (4 PRs)</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/38">#38</a></td><td>E2E testing skill for diary Playwright tests</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/42">#42</a></td><td>Testing skill for Legado (Memoury) app</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/43">#43</a></td><td>E2E testing skill for Legado web app</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/48">#48</a></td><td>Testing skill update with type-checking and build guidance</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Housekeeping -->
+    <div class="section-card">
+      <h2>Housekeeping (1 PR)</h2>
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/51">PR #51</a> &mdash; Obsidian Workspace Reset <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Reset Obsidian workspace and normalized community tags</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All Merged PRs &mdash; May 27</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/33">#33</a></td><td>LEG-30 MVP Essentials</td><td>&mdash;</td><td>Code Quality</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/34">#34</a></td><td>Refactor diary tests to route mocking</td><td>#26</td><td>Testing</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/36">#36</a></td><td>Fix Diary CRUD test selectors</td><td>#35</td><td>Testing</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/37">#37</a></td><td>Empty states + error boundaries</td><td>#27</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/38">#38</a></td><td>E2E testing skill (diary)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/41">#41</a></td><td>Mobile responsiveness audit</td><td>#28</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/42">#42</a></td><td>Testing skill (Memoury)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/43">#43</a></td><td>E2E testing skill (web app)</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/44">#44</a></td><td>GDPR data export + account deletion</td><td>#29</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/45">#45</a></td><td>Fix VoiceRecorder useEffect</td><td>#40</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/46">#46</a></td><td>Fix MediaUploader type mismatch</td><td>#39</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/47">#47</a></td><td>Forgot password flow</td><td>#32</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/48">#48</a></td><td>Testing skill update</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/49">#49</a></td><td>Landing/marketing page</td><td>#30</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/50">#50</a></td><td>Lighthouse performance audit</td><td>#31</td><td>Performance</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/51">#51</a></td><td>Obsidian workspace reset</td><td>&mdash;</td><td>Housekeeping</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  &copy; 2026 Memoury. All rights reserved.
+</footer>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
