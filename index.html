@@ -251,6 +251,7 @@
   <button class="tab-btn active" onclick="switchTab('comprehensive')">Comprehensive Report</button>
   <button class="tab-btn" onclick="switchTab('daily')">May 27 Report</button>
   <button class="tab-btn" onclick="switchTab('may28')">May 28 Report</button>
+  <button class="tab-btn" onclick="switchTab('may29')">May 29 Report</button>
 </nav>
 
 <div class="content">
@@ -811,6 +812,90 @@
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/113">#113</a></td><td>Translate Portuguese text to English</td><td>&mdash;</td><td>Code Quality</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/114">#114</a></td><td>Fix advisor tree selection</td><td>#77</td><td>Bug Fix</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/115">#115</a></td><td>Fix invite accept context reload</td><td>#79</td><td>Bug Fix</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== MAY 29 DAILY REPORT ==================== -->
+  <div id="may29" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">5</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">5</span> Issues Resolved</span>
+      <span class="meta-badge"><span class="num">45</span> New Tests</span>
+      <span class="meta-badge">May 29, 2026</span>
+    </div>
+
+    <!-- Theme: Collaborator Permissions -->
+    <div class="section-card">
+      <h2>Role-Based Access Control (RBAC)</h2>
+      <p>The <code>tree_collaborators</code> table had a <code>role</code> column (defaulting to <code>editor</code>) but no code enforced it &mdash; all collaborators had full write access regardless of role. This day's work introduced a complete RBAC system with granular ownership tracking.</p>
+
+      <h3>Issue #83 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/121">PR #121</a> &mdash; Enforce TreeCollaborator Role-Based Permissions <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Introduced two role levels: <strong>viewer</strong> (read-only) and <strong>editor</strong> (read/write)</li>
+        <li>Added <code>roleFor()</code>, <code>canAccess()</code>, and <code>canEdit()</code> methods to the FamilyTree model</li>
+        <li><strong>15 controllers modified</strong> &mdash; read endpoints use <code>canAccess()</code>, write endpoints use <code>canEdit()</code></li>
+        <li>Relaxed <code>BookExportController</code> and <code>BookSectionRevisionController</code> from owner-only to <code>canAccess()</code> so collaborators can read</li>
+        <li>Relaxed <code>AdvisorMessageController</code> from owner-only to <code>canEdit()</code> so editors can send messages</li>
+        <li>Invitation system updated to accept optional <code>role</code> field (<code>editor</code> or <code>viewer</code>, defaults to <code>editor</code>)</li>
+        <li>New migration adds <code>role</code> column to <code>invitations</code> table</li>
+        <li><strong>25 new tests</strong> in <code>CollaboratorRoleTest</code> covering model methods, read/write enforcement, and invitation role propagation</li>
+        <li>All 176 existing tests pass with zero regressions</li>
+      </ul>
+
+      <h3>Issue #84 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/120">PR #120</a> &mdash; Add Ownership Tracking &amp; Scope Collaborator Writes <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added nullable <code>created_by</code> UUID column to <code>family_members</code>, <code>relationships</code>, and <code>life_events</code> tables</li>
+        <li>Collaborators can only modify records they created; tree owners retain full write access</li>
+        <li>Auto-sets <code>created_by</code> on store operations; update/destroy check ownership via <code>authorizeWrite()</code></li>
+        <li>Legacy records (<code>created_by = null</code>) protected from collaborator edits by design</li>
+        <li>Includes <code>created_by</code> in GDPR data export</li>
+        <li><strong>20 new tests</strong> in <code>CollaboratorOwnershipTest</code> covering create, edit, delete, owner override, and legacy record protection</li>
+      </ul>
+
+      <h3>Issue #85 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/119">PR #119</a> &mdash; Hide Edit/Invite Forms from Collaborators <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Settings &rarr; Family tab previously showed edit/invite forms to all users, including collaborators who would get a 403 on submit</li>
+        <li>Collaborators now see a <strong>read-only view</strong> of tree details with a message: &ldquo;You are a collaborator on this family. Only the owner can edit these details.&rdquo;</li>
+        <li>Invite collaborator form <strong>completely hidden</strong> for non-owners</li>
+        <li>Uses <code>current_user_role</code> field from the tree list API response</li>
+      </ul>
+    </div>
+
+    <!-- Bug Fixes -->
+    <div class="section-card">
+      <h2>Bug Fixes (2 PRs)</h2>
+
+      <h3>Issue #81 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/118">PR #118</a> &mdash; Fix Backend Invite Validation Error Messages <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Previous translation commit used incorrect wording for the 409 response</li>
+        <li>Fixed: <code>&ldquo;Invitation already accepted.&rdquo;</code> &rarr; <code>&ldquo;Invitation has already been accepted.&rdquo;</code></li>
+        <li>Single-line change in <code>InvitationController.php</code></li>
+      </ul>
+
+      <h3>Issue #82 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/117">PR #117</a> &mdash; Fix Invite Accept Button Text Contrast <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Button used <code>text-white</code> with <code>bg-foreground</code> &mdash; invisible on light themes where foreground is also light</li>
+        <li>Fixed: <code>text-white</code> &rarr; <code>text-background</code> for proper contrast in all themes</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All Merged PRs &mdash; May 29</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/117">#117</a></td><td>Fix invite accept button text contrast</td><td>#82</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/118">#118</a></td><td>Fix backend invite validation error messages</td><td>#81</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/119">#119</a></td><td>Hide edit/invite forms from collaborators</td><td>#85</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/120">#120</a></td><td>Add ownership tracking &amp; scope collaborator writes</td><td>#84</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/121">#121</a></td><td>Enforce role-based permissions (viewer/editor)</td><td>#83</td><td>Security</td></tr>
         </tbody>
       </table>
     </div>
