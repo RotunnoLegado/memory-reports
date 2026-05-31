@@ -252,6 +252,7 @@
   <button class="tab-btn" onclick="switchTab('daily')">May 27 Report</button>
   <button class="tab-btn" onclick="switchTab('may28')">May 28 Report</button>
   <button class="tab-btn" onclick="switchTab('may29')">May 29 Report</button>
+  <button class="tab-btn" onclick="switchTab('may30')">May 30 Report</button>
 </nav>
 
 <div class="content">
@@ -896,6 +897,223 @@
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/119">#119</a></td><td>Hide edit/invite forms from collaborators</td><td>#85</td><td>Security</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/120">#120</a></td><td>Add ownership tracking &amp; scope collaborator writes</td><td>#84</td><td>Security</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/121">#121</a></td><td>Enforce role-based permissions (viewer/editor)</td><td>#83</td><td>Security</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== MAY 30 DAILY REPORT ==================== -->
+  <div id="may30" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">27</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">23</span> Issues Resolved</span>
+      <span class="meta-badge"><span class="num">50+</span> Files Modified</span>
+      <span class="meta-badge">May 30, 2026</span>
+    </div>
+
+    <!-- Collaborator Management -->
+    <div class="section-card">
+      <h2>Collaborator Management (5 PRs)</h2>
+      <p>Built out the full collaborator lifecycle &mdash; owners can now add, remove, and manage collaborator roles, while collaborators can voluntarily leave shared trees.</p>
+
+      <h3>Issue #86 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/124">PR #124</a> &mdash; Revoke Collaborator Access <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New <code>TreeCollaboratorController</code> with <code>index</code> and <code>destroy</code> actions (owner-only)</li>
+        <li>Settings &rarr; Family tab shows collaborator list with inline confirmation before removal</li>
+      </ul>
+
+      <h3>Issue #87 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/126">PR #126</a> &mdash; Collaborator Self-Removal (Leave Tree) <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New endpoint: <code>DELETE /api/trees/{tree}/collaborators/me</code></li>
+        <li>&ldquo;Leave this family&rdquo; button with confirmation dialog in Settings Family tab</li>
+        <li>Redirects to dashboard and reloads family context after leaving</li>
+      </ul>
+
+      <h3>Issue #88 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/123">PR #123</a> &mdash; Prevent Self-Invite &amp; Duplicate Invites <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Returns 422 if invited email matches tree owner (case-insensitive)</li>
+        <li>Returns 409 if invited email belongs to an existing collaborator</li>
+        <li><strong>2 new feature tests</strong> covering both scenarios</li>
+      </ul>
+
+      <h3>Issue #89 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/125">PR #125</a> &mdash; Collaborator Management UI <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><code>CollaboratorListPanel</code> in Settings showing owner (crown badge), collaborators with email, role, and join date</li>
+        <li>Owner-only remove button with trash icon</li>
+        <li>Backend enhanced to return owner info alongside collaborator list</li>
+      </ul>
+
+      <h3>Issue #90 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/127">PR #127</a> &mdash; Role Management UI for Collaborators <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New <code>PUT /trees/{tree}/collaborators/{collaborator}</code> endpoint for role changes</li>
+        <li>Role dropdown (Editor/Viewer) in collaborator list for owners; static badge for non-owners</li>
+        <li>Invite form now includes role selector when inviting new collaborators</li>
+      </ul>
+    </div>
+
+    <!-- Invitation System -->
+    <div class="section-card">
+      <h2>Invitation System Enhancements (8 PRs)</h2>
+
+      <h3>Issue #91 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/128">PR #128</a> &mdash; Pending Invitations List <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Tree owners can now see all pending invitations in Settings &rarr; Family tab</li>
+        <li>Added <code>index</code> and <code>destroy</code> actions to <code>InvitationController</code></li>
+      </ul>
+
+      <h3>Issue #92 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/129">PR #129</a> &mdash; Notification Email on Invite Accept <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New <code>InvitationAcceptedMail</code> mailable and Blade template</li>
+        <li>Tree owner receives an email when a collaborator accepts their invitation</li>
+      </ul>
+
+      <h3>Issue #95 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/132">PR #132</a> &mdash; Rate Limiting on Invitation Endpoint <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Prevents invitation spam with throttle middleware</li>
+      </ul>
+
+      <h3>Issue #96 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/133">PR #133</a> &mdash; Duplicate Invitation Check <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Returns error if an active invitation already exists for the same email on the same tree</li>
+      </ul>
+
+      <h3>Issue #97 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/134">PR #134</a> &mdash; Scheduled Cleanup for Expired Invitations <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New Artisan command <code>invitations:cleanup</code> runs daily via scheduler</li>
+        <li>Removes expired invitations from the database automatically</li>
+      </ul>
+
+      <h3>Issue #98 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/135">PR #135</a> &mdash; Bulk Invite Capability <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Invite multiple collaborators at once from Settings &rarr; Family tab</li>
+      </ul>
+
+      <h3>Issue #102 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/139">PR #139</a> &mdash; Localize Email Templates to English <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Invitation email templates translated to match the English app UI</li>
+      </ul>
+
+      <h3>Issue #104 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/141">PR #141</a> &mdash; Confirmation Step Before Sending Invitation <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added confirmation dialog before invitation is dispatched</li>
+      </ul>
+    </div>
+
+    <!-- Tree & Frontend UX -->
+    <div class="section-card">
+      <h2>Tree UX &amp; Frontend (8 PRs)</h2>
+
+      <h3>Issue #93 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/130">PR #130</a> &mdash; Ownership Indicator in Sidebar <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Trees you own are visually distinguished from collaborated trees in the sidebar switcher</li>
+      </ul>
+
+      <h3>Issue #94 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/131">PR #131</a> &mdash; &ldquo;Shared with You&rdquo; Indicator <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>&ldquo;Shared by [owner]&rdquo; banner displayed when viewing a collaborated tree</li>
+      </ul>
+
+      <h3>Issue #99 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/136">PR #136</a> &mdash; Unify Tree Selection Across All Pages <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Ensured every page uses <code>FamilyContext</code> for consistent tree selection</li>
+      </ul>
+
+      <h3>Issue #100 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/137">PR #137</a> &mdash; Verify canAccess/canEdit Consistency <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Audited all tree-scoped controllers to ensure proper permission checks</li>
+      </ul>
+
+      <h3>Issue #101 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/138">PR #138</a> &mdash; Frontend Role Gating for Write Actions <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added <code>owner_name</code> to tree API response</li>
+        <li>Viewers see read-only UI; edit/delete buttons hidden for non-editors across members, diary, and settings</li>
+      </ul>
+
+      <h3>Issue #103 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/140">PR #140</a> &mdash; Optimistic UI for Invite Acceptance <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>After accepting an invite, the family context reloads and the new tree is auto-selected</li>
+      </ul>
+
+      <h3>Issue #105 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/142">PR #142</a> &mdash; Improve Error Handling on Invite Accept Page <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Distinguished between 404 (invalid/expired token) and 500 (server error) on the invite accept page</li>
+      </ul>
+
+      <h3>Issue #106 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/143">PR #143</a> &mdash; Tree Deletion Capability <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>New <code>DELETE /api/trees/{tree}</code> endpoint (owner-only) with cascading deletes</li>
+        <li>&ldquo;Delete Tree&rdquo; section in Settings &rarr; Family tab with confirmation dialog</li>
+      </ul>
+    </div>
+
+    <!-- Infrastructure -->
+    <div class="section-card">
+      <h2>Infrastructure &amp; Dev Experience (5 PRs)</h2>
+
+      <h3>Issue #144 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/146">PR #146</a> &mdash; Migrate middleware.ts to Proxy Convention <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Renamed <code>middleware.ts</code> &rarr; <code>proxy.ts</code> per Next.js 16 deprecation</li>
+        <li>Renamed exported function from <code>middleware()</code> to <code>proxy()</code></li>
+      </ul>
+
+      <h3>Issue #145 &rarr; PRs <a href="https://github.com/RotunnoLegado/legado/pull/147">#147</a>, <a href="https://github.com/RotunnoLegado/legado/pull/148">#148</a>, <a href="https://github.com/RotunnoLegado/legado/pull/149">#149</a>, <a href="https://github.com/RotunnoLegado/legado/pull/150">#150</a> &mdash; Fix Docker &amp; Next.js 16 Startup <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>PR #147</strong>: Added <code>NEXT_IGNORE_INCORRECT_LOCKFILE=true</code> to docker-compose and lockfile snapshot/restore in entrypoint</li>
+        <li><strong>PR #148</strong>: Moved <code>/billing</code> redirect from page component to <code>next.config.mjs</code> to fix static generation errors</li>
+        <li><strong>PR #149</strong>: Removed orphaned root <code>package-lock.json</code> causing Turbopack to infer wrong workspace root</li>
+        <li><strong>PR #150</strong>: Upgraded Dockerfile.dev from <code>node:20-alpine</code> to <code>node:22-alpine</code> and removed stale <code>--prefer-offline</code> flag</li>
+      </ul>
+    </div>
+
+    <!-- Security -->
+    <div class="section-card">
+      <h2>Security (1 PR)</h2>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/151">PR #151</a> &mdash; Fix Fail-Open Auth Bypass in proxy.ts <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Critical vulnerability</strong>: Missing Supabase env vars or any auth error allowed unauthenticated access to protected routes</li>
+        <li>Both fail-open paths now redirect to <code>/login</code> for protected routes</li>
+        <li>Public and auth routes handled separately to prevent redirect loops</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All Merged PRs &mdash; May 30</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/123">#123</a></td><td>Prevent self-invite &amp; duplicate invites</td><td>#88</td><td>Collaborator</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/124">#124</a></td><td>Revoke collaborator access</td><td>#86</td><td>Collaborator</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/125">#125</a></td><td>Collaborator management UI</td><td>#89</td><td>Collaborator</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/126">#126</a></td><td>Collaborator self-removal (leave tree)</td><td>#87</td><td>Collaborator</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/127">#127</a></td><td>Role management UI for collaborators</td><td>#90</td><td>Collaborator</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/128">#128</a></td><td>Pending invitations list</td><td>#91</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/129">#129</a></td><td>Notification email on invite accept</td><td>#92</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/130">#130</a></td><td>Ownership indicator in sidebar</td><td>#93</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/131">#131</a></td><td>&ldquo;Shared with you&rdquo; indicator</td><td>#94</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/132">#132</a></td><td>Rate limiting on invitation endpoint</td><td>#95</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/133">#133</a></td><td>Duplicate invitation check</td><td>#96</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/134">#134</a></td><td>Scheduled cleanup for expired invitations</td><td>#97</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/135">#135</a></td><td>Bulk invite capability</td><td>#98</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/136">#136</a></td><td>Unify tree selection across all pages</td><td>#99</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/137">#137</a></td><td>Verify canAccess/canEdit consistency</td><td>#100</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/138">#138</a></td><td>Frontend role gating for write actions</td><td>#101</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/139">#139</a></td><td>Localize email templates to English</td><td>#102</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/140">#140</a></td><td>Optimistic UI for invite acceptance</td><td>#103</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/141">#141</a></td><td>Confirmation step before sending invitation</td><td>#104</td><td>Invitation</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/142">#142</a></td><td>Improve error handling on invite accept</td><td>#105</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/143">#143</a></td><td>Tree deletion capability</td><td>#106</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/146">#146</a></td><td>Migrate middleware.ts to proxy convention</td><td>#144</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/147">#147</a></td><td>Fix SWC lockfile patching failure</td><td>#145</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/148">#148</a></td><td>Fix /billing page build failure</td><td>#145</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/149">#149</a></td><td>Fix orphaned root lockfile</td><td>#145</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/150">#150</a></td><td>Fix Docker dev container stuck on Next.js 14</td><td>#145</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/151">#151</a></td><td>Fix fail-open auth bypass in proxy.ts</td><td>&mdash;</td><td>Security</td></tr>
         </tbody>
       </table>
     </div>
