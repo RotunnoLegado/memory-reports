@@ -253,6 +253,8 @@
   <button class="tab-btn" onclick="switchTab('may28')">May 28 Report</button>
   <button class="tab-btn" onclick="switchTab('may29')">May 29 Report</button>
   <button class="tab-btn" onclick="switchTab('may30')">May 30 Report</button>
+  <button class="tab-btn" onclick="switchTab('may31')">May 31 Report</button>
+  <button class="tab-btn" onclick="switchTab('jun01')">Jun 1 Report</button>
 </nav>
 
 <div class="content">
@@ -1114,6 +1116,416 @@
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/149">#149</a></td><td>Fix orphaned root lockfile</td><td>#145</td><td>Infrastructure</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/150">#150</a></td><td>Fix Docker dev container stuck on Next.js 14</td><td>#145</td><td>Infrastructure</td></tr>
           <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/151">#151</a></td><td>Fix fail-open auth bypass in proxy.ts</td><td>&mdash;</td><td>Security</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- ==================== MAY 31 DAILY REPORT ==================== -->
+  <div id="may31" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">40+</span> PRs Merged</span>
+      <span class="meta-badge"><span class="num">35+</span> Issues Resolved</span>
+      <span class="meta-badge"><span class="num">150+</span> Files Modified</span>
+      <span class="meta-badge">May 31, 2026</span>
+    </div>
+
+    <!-- Design Specs -->
+    <div class="section-card">
+      <h2>Design Specifications (5 PRs)</h2>
+      <p>Created comprehensive design documents in <code>docs/superpowers/</code> to guide implementation of the remaining feature backlog.</p>
+
+      <h3>Issue #152 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/169">PR #169</a> &mdash; GDPR/LGPD Design Spec <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Detailed spec for data export, account deletion, and consent management</li>
+      </ul>
+
+      <h3>Issue #153 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/170">PR #170</a> &mdash; Collaborator Roles &amp; Permissions Spec <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Spec for viewer/editor/owner role hierarchy and permission matrix</li>
+      </ul>
+
+      <h3>Issue #154 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/171">PR #171</a> &mdash; May 2026 Features Spec <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Consolidated design spec for all planned features</li>
+      </ul>
+
+      <h3>Issue #155 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/172">PR #172</a> &mdash; Landing Page &amp; Tree Management Spec <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Landing page wireframe and tree CRUD management design</li>
+      </ul>
+
+      <h3>Issue #156 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/173">PR #173</a> &mdash; Superpowers Docs README <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Index README for the <code>docs/superpowers/</code> directory</li>
+      </ul>
+    </div>
+
+    <!-- New Features Phase 1 -->
+    <div class="section-card">
+      <h2>New Features &mdash; Foundation (7 PRs)</h2>
+
+      <h3>Issue #157 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/174">PR #174</a> &mdash; Google OAuth Login <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added Google OAuth login/register buttons integrated with Supabase Auth</li>
+      </ul>
+
+      <h3>Issue #158 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/175">PR #175</a> &mdash; Family Tree Visualization <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Interactive SVG-based family tree graph</li>
+      </ul>
+
+      <h3>Issue #159 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/176">PR #176</a> &mdash; S3/CloudFront Photo Uploads <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Photo uploads for members and profile via S3 with CloudFront CDN</li>
+      </ul>
+
+      <h3>Issue #160 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/177">PR #177</a> &mdash; i18n Infrastructure <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added internationalization with en/pt-BR translation files</li>
+      </ul>
+
+      <h3>Issue #161 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/166">PR #166</a> &mdash; SoftDeletes for Relationships <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added <code>SoftDeletes</code> trait to Relationship model for safe deletion</li>
+      </ul>
+
+      <h3>Issue #162 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/167">PR #167</a> &mdash; Advisor Session Deletion <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Delete endpoint and UI for removing advisor conversation sessions</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/178">PR #178</a> &mdash; Remove pt-BR Translations (English Only) <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Removed legacy Portuguese translations; app standardized to English-first</li>
+      </ul>
+    </div>
+
+    <!-- Backend Fixes & Robustness -->
+    <div class="section-card">
+      <h2>Backend Fixes &amp; Robustness (8 PRs)</h2>
+
+      <h3>Issues #179, #183, #193, #194 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/212">PR #212</a> &mdash; Quick Backend Fixes <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed <code>file_type</code> enum, removed debug log, fixed locale fallback, fixed PDF filename</li>
+      </ul>
+
+      <h3>Issue #180 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/213">PR #213</a> &mdash; Cascade All Related Data on Tree Deletion <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Deleting a tree now cascades to members, relationships, events, media, diary, book sections</li>
+      </ul>
+
+      <h3>Issue #181 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/214">PR #214</a> &mdash; Validate Member Belongs to Tree in Advisor <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Prevents advisor queries from accessing members of other trees</li>
+      </ul>
+
+      <h3>Issue #182 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/215">PR #215</a> &mdash; Return Bidirectional Relationships <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Family member API now returns relationships in both directions</li>
+      </ul>
+
+      <h3>Issue #184 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/216">PR #216</a> &mdash; Fix display_id Race Condition <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Row-level locking prevents duplicate <code>display_id</code> on concurrent member creation</li>
+      </ul>
+
+      <h3>Issues #187&ndash;#191 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/218">PR #218</a> &mdash; Backend Robustness Batch <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Pagination</strong> for all list endpoints</li>
+        <li><strong>N+1 query fixes</strong> with eager loading</li>
+        <li><strong>Rate limiting</strong> on mutation endpoints</li>
+        <li><strong>Validation hardening</strong> across controllers</li>
+      </ul>
+
+      <h3>Issue #192 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/219">PR #219</a> &mdash; Forward Presign Headers in MediaUploader <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Fixed S3 presigned upload by forwarding correct content-type headers</li>
+      </ul>
+
+      <h3>Issue #71 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/165">PR #165</a> &mdash; Fix Book PDF Export Auth Error <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>PDF export now uses auth headers instead of unauthenticated link</li>
+      </ul>
+    </div>
+
+    <!-- Major New Features -->
+    <div class="section-card">
+      <h2>Major New Features (12 PRs)</h2>
+
+      <h3>Issue #199 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/223">PR #223</a> &mdash; Global Search <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Search across members, diary entries, and book sections from a unified search bar</li>
+      </ul>
+
+      <h3>Issue #200 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/228">PR #228</a> &mdash; In-App Notification System <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Bell icon with notification dropdown; real-time updates for tree activity</li>
+      </ul>
+
+      <h3>Issue #201 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/225">PR #225</a> &mdash; Activity Feed <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Log and display tree changes (member added, diary created, etc.) in a timeline</li>
+      </ul>
+
+      <h3>Issue #202 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/235">PR #235</a> &mdash; Diary Entry Editing UI <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Edit button and modal for updating existing diary entries</li>
+      </ul>
+
+      <h3>Issue #203 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/222">PR #222</a> &mdash; Media Gallery Page <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Full media gallery with type filters, lightbox preview, and audio player</li>
+      </ul>
+
+      <h3>Issue #204 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/220">PR #220</a> &mdash; GEDCOM Export <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Export family tree data in GEDCOM format for interoperability with genealogy software</li>
+      </ul>
+
+      <h3>Issue #205 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/221">PR #221</a> &mdash; Advisor Session History <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>List and view past AI advisor conversations</li>
+      </ul>
+
+      <h3>Issue #206 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/229">PR #229</a> &mdash; Interactive Family Tree Graph <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Zoomable, pannable graph visualization using @xyflow/react + dagre layout</li>
+      </ul>
+
+      <h3>Issue #207 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/231">PR #231</a> &mdash; Offline/PWA Support <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Service worker with caching strategy + web app manifest for installability</li>
+      </ul>
+
+      <h3>Issue #208 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/226">PR #226</a> &mdash; Bulk Delete Members <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Multi-select UI with bulk deletion for managing large family trees</li>
+      </ul>
+
+      <h3>Issue #209 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/224">PR #224</a> &mdash; Flexible/Approximate Dates <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Support for approximate dates (&ldquo;circa 1920&rdquo;, &ldquo;before 1950&rdquo;) for family members</li>
+      </ul>
+
+      <h3>Issue #210 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/230">PR #230</a> &mdash; Multi-Language i18n <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Full i18n with English, Portuguese, and Spanish locale support</li>
+      </ul>
+    </div>
+
+    <!-- Security -->
+    <div class="section-card">
+      <h2>Security (3 PRs)</h2>
+
+      <h3>Issues #195, #197 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/217">PR #217</a> &mdash; Validate S3 Key Format &amp; Revoke Sessions <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Validates <code>s3_key</code> format to prevent path traversal</li>
+        <li>Revokes Supabase session on account deletion</li>
+      </ul>
+
+      <h3>Issues #196, #198, #185 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/233">PR #233</a> &mdash; Security Hardening &amp; Authorization Standardization <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Standardized all controllers to use <code>abort_if</code>/<code>abort_unless</code></li>
+        <li>Removed <code>id</code> from Profile <code>$fillable</code></li>
+        <li>Used <code>random_bytes</code> for invitation tokens</li>
+      </ul>
+
+      <h3>Issue #211 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/227">PR #227</a> &mdash; Audit Log for Account-Level Actions <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Logs account creation, deletion, data export, and password changes</li>
+      </ul>
+    </div>
+
+    <!-- Frontend Improvements -->
+    <div class="section-card">
+      <h2>Frontend Improvements (2 PRs)</h2>
+
+      <h3>Issue #186 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/234">PR #234</a> &mdash; Replace Swallowed Errors with User-Visible Feedback <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Errors that were silently caught now display toast notifications to the user</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/232">PR #232</a> &mdash; Update Testing Skills <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Updated testing skills with mock API patterns and feature testing knowledge</li>
+      </ul>
+    </div>
+
+    <!-- Infrastructure & Bug Fixes from this session -->
+    <div class="section-card">
+      <h2>Infrastructure &amp; Configuration (3 PRs)</h2>
+
+      <h3>Issue #239 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/240">PR #240</a> &mdash; Fix Docker Compose API Proxy Networking <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Used Docker service name for API proxy in docker-compose</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/245">PR #245</a> &mdash; Guard tsconfig jsx=preserve with CI Check <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Added CI check and comment to prevent accidental <code>jsx</code> overrides</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/252">PR #252</a> &mdash; Fix tsconfig jsx Setting for Next.js 16 <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Set <code>jsx</code> to <code>react-jsx</code> to match Next.js 16 expectations and eliminate build warning</li>
+      </ul>
+    </div>
+
+    <!-- Bug Fixes & Features from this session -->
+    <div class="section-card">
+      <h2>Bug Fixes &amp; Features (6 PRs)</h2>
+
+      <h3>Issue #238 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/246">PR #246</a> &mdash; Close Tree Dropdown on Outside Click <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Tree selection dropdown now closes when clicking anywhere outside the component</li>
+      </ul>
+
+      <h3>Issue #236 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/247">PR #247</a> &mdash; Fix Settings Not Showing Profile with Stale Cache <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Refreshes stale Supabase token and shows load error state in settings</li>
+      </ul>
+
+      <h3>Issue #241 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/248">PR #248</a> &mdash; Add Voice Recording for Diary Entries <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Record and attach voice memos to diary entries with S3 upload</li>
+      </ul>
+
+      <h3>Issue #242 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/249">PR #249</a> &mdash; Add Recipient Selection for Advice <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>&ldquo;Directed to&rdquo; dropdown for selecting which family member advice is addressed to</li>
+      </ul>
+
+      <h3>Issue #243 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/250">PR #250</a> &mdash; Fix Resend Email Delivery <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Handle email delivery failures gracefully in invitation flow</li>
+      </ul>
+
+      <h3>Issue #244 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/251">PR #251</a> &mdash; Fix Invitation Email Localhost URL <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>Invitation emails now use <code>FRONTEND_URL</code> env var instead of hardcoded localhost</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All Merged PRs &mdash; May 31</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/165">#165</a></td><td>Fix book PDF export auth error</td><td>#71</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/166">#166</a></td><td>SoftDeletes for Relationship model</td><td>#161</td><td>Backend</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/167">#167</a></td><td>Advisor session deletion</td><td>#162</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/169">#169</a></td><td>GDPR/LGPD design spec</td><td>#152</td><td>Docs</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/170">#170</a></td><td>Collaborator roles spec</td><td>#153</td><td>Docs</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/171">#171</a></td><td>May 2026 features spec</td><td>#154</td><td>Docs</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/172">#172</a></td><td>Landing page &amp; tree management spec</td><td>#155</td><td>Docs</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/173">#173</a></td><td>Superpowers docs README</td><td>#156</td><td>Docs</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/174">#174</a></td><td>Google OAuth login</td><td>#157</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/175">#175</a></td><td>Family tree visualization</td><td>#158</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/176">#176</a></td><td>S3/CloudFront photo uploads</td><td>#159</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/177">#177</a></td><td>i18n infrastructure</td><td>#160</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/178">#178</a></td><td>Remove pt-BR translations</td><td>&mdash;</td><td>Housekeeping</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/212">#212</a></td><td>Quick backend fixes</td><td>#179, #183, #193, #194</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/213">#213</a></td><td>Cascade tree deletion</td><td>#180</td><td>Backend</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/214">#214</a></td><td>Validate member in advisor</td><td>#181</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/215">#215</a></td><td>Bidirectional relationships</td><td>#182</td><td>Backend</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/216">#216</a></td><td>Fix display_id race condition</td><td>#184</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/217">#217</a></td><td>Validate s3_key + revoke session</td><td>#195, #197</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/218">#218</a></td><td>Backend robustness batch</td><td>#187&ndash;#191</td><td>Backend</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/219">#219</a></td><td>Forward presign headers</td><td>#192</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/220">#220</a></td><td>GEDCOM export</td><td>#204</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/221">#221</a></td><td>Advisor session history</td><td>#205</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/222">#222</a></td><td>Media gallery page</td><td>#203</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/223">#223</a></td><td>Global search</td><td>#199</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/224">#224</a></td><td>Flexible/approximate dates</td><td>#209</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/225">#225</a></td><td>Activity feed</td><td>#201</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/226">#226</a></td><td>Bulk delete members</td><td>#208</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/227">#227</a></td><td>Audit log</td><td>#211</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/228">#228</a></td><td>In-app notifications</td><td>#200</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/229">#229</a></td><td>Interactive tree graph</td><td>#206</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/230">#230</a></td><td>Multi-language i18n</td><td>#210</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/231">#231</a></td><td>Offline/PWA support</td><td>#207</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/232">#232</a></td><td>Update testing skills</td><td>&mdash;</td><td>Tooling</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/233">#233</a></td><td>Security hardening</td><td>#196, #198, #185</td><td>Security</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/234">#234</a></td><td>User-visible error feedback</td><td>#186</td><td>UX</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/235">#235</a></td><td>Diary entry editing UI</td><td>#202</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/240">#240</a></td><td>Fix Docker Compose API proxy</td><td>#239</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/245">#245</a></td><td>Guard tsconfig jsx setting</td><td>&mdash;</td><td>Infrastructure</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/246">#246</a></td><td>Close tree dropdown on outside click</td><td>#238</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/247">#247</a></td><td>Fix settings stale cache</td><td>#236</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/248">#248</a></td><td>Voice recording for diary</td><td>#241</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/249">#249</a></td><td>Recipient selection for advice</td><td>#242</td><td>Feature</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/250">#250</a></td><td>Fix Resend email delivery</td><td>#243</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/251">#251</a></td><td>Fix invitation email URL</td><td>#244</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/252">#252</a></td><td>Fix tsconfig jsx for Next.js 16</td><td>&mdash;</td><td>Infrastructure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== JUNE 1 DAILY REPORT ==================== -->
+  <div id="jun01" class="tab-content">
+
+    <div class="report-meta">
+      <span class="meta-badge"><span class="num">3</span> PRs</span>
+      <span class="meta-badge"><span class="num">1</span> Issue Resolved</span>
+      <span class="meta-badge"><span class="num">20+</span> Files Modified</span>
+      <span class="meta-badge">June 1, 2026</span>
+    </div>
+
+    <!-- Bug Fix -->
+    <div class="section-card">
+      <h2>Bug Fix (1 PR)</h2>
+
+      <h3>Issue #242 &rarr; <a href="https://github.com/RotunnoLegado/legado/pull/253">PR #253</a> &mdash; Fix Advice Recipient to Show Collaborators <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li>The &ldquo;Directed to&rdquo; dropdown was showing deceased ancestors instead of living collaborators</li>
+        <li>Changed to fetch collaborators (people invited to the tree) via profiles API</li>
+        <li>DB column migrated from <code>directed_to_member_id</code> &rarr; <code>directed_to_profile_id</code></li>
+      </ul>
+    </div>
+
+    <!-- Performance Optimization -->
+    <div class="section-card">
+      <h2>Performance Optimization (2 PRs)</h2>
+      <p>User reported slow local dev load times. Investigated and implemented a series of optimizations across two PRs.</p>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/254">PR #254</a> &mdash; Eliminate Fetch Waterfall &amp; Cache Auth Token <span class="badge badge-merged">Merged</span></h3>
+      <ul>
+        <li><strong>Fetch waterfall fix</strong>: Pages waited for <code>FamilyProvider</code> to finish <code>/api/trees</code> before starting their own data fetches. Now <code>selectedTreeId</code> is read from localStorage synchronously so both requests fire in parallel</li>
+        <li><strong>Token caching</strong>: <code>getBrowserToken()</code> was calling <code>supabase.auth.getSession()</code> on every API call. Now cached with expiry + concurrent calls share a single promise</li>
+        <li><strong>Loading skeleton</strong>: Added <code>loading.tsx</code> for instant spinner instead of blank screen</li>
+        <li>13+ page files updated to use <code>selectedTreeId</code> for parallel data fetching</li>
+      </ul>
+
+      <h3><a href="https://github.com/RotunnoLegado/legado/pull/255">PR #255</a> &mdash; Client-Side Response Cache &amp; Lazy-Load Heavy Dependencies <span class="badge badge-partial">Open</span></h3>
+      <ul>
+        <li><strong>Response cache</strong>: GET responses cached 30s in memory; page navigation serves cached data instantly. Concurrent GETs deduplicated. Cache auto-clears on mutations</li>
+        <li><strong>Lazy-load tree-view</strong>: <code>@xyflow/react</code> (3.1 MB) + <code>dagre</code> (960 KB) loaded only when tree-view page is visited via <code>next/dynamic</code> with <code>ssr: false</code></li>
+        <li><strong>Lazy-load locales</strong>: Only <code>en.json</code> bundled statically; <code>pt.json</code>/<code>es.json</code> loaded on-demand when user switches language</li>
+        <li>Removed <code>cache: &lsquo;no-store&rsquo;</code> from client fetches (was preventing browser HTTP caching)</li>
+      </ul>
+    </div>
+
+    <!-- All PRs Table -->
+    <div class="section-card">
+      <h2>All PRs &mdash; June 1</h2>
+      <table>
+        <thead>
+          <tr><th>PR</th><th>Title</th><th>Issue</th><th>Category</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/253">#253</a></td><td>Fix advice recipient (collaborators)</td><td>#242</td><td>Bug Fix</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/254">#254</a></td><td>Eliminate fetch waterfall + cache token</td><td>&mdash;</td><td>Performance</td></tr>
+          <tr><td><a href="https://github.com/RotunnoLegado/legado/pull/255">#255</a></td><td>Response cache + lazy-load deps</td><td>&mdash;</td><td>Performance</td></tr>
         </tbody>
       </table>
     </div>
